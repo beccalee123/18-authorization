@@ -3,10 +3,15 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const faker = require('faker');
+
 
 const SINGLE_USE_TOKENS = !!process.env.SINGLE_USE_TOKENS;
-const TOKEN_EXPIRE = process.env.TOKEN_LIFETIME || '5m';
+const TOKEN_EXPIRE = process.env.TOKEN_LIFETIME;
 const SECRET = process.env.SECRET || 'foobar';
+
+// setInterval(() => console.log(faker.random.word()), 60000);
+
 
 const usedTokens = new Set();
 
@@ -46,9 +51,14 @@ users.statics.createFromOauth = function(email) {
 };
 
 users.statics.authenticateToken = function(token){
-  let parsedToken = jwt.verify(token, process.env.SECRET);
-  let query = {_id:parsedToken.id};
-  return this.findOne(query);
+  if(usedTokens.has(token)) {
+    throw 'Resource Not Available';
+  } else {
+    usedTokens.add(token);
+    let parsedToken = jwt.verify(token, SECRET);
+    let query = {_id:parsedToken.id};
+    return this.findOne(query);    
+  }
 };
 
 users.statics.authenticateBasic = function(auth) {
@@ -72,7 +82,7 @@ users.methods.generateToken = function(type) {
     // put invalidation here?
   };
   
-  return jwt.sign(token, SECRET); //put expiration here?
+  return jwt.sign(token, SECRET, {expiresIn: 60}); //put expiration here?
 };
 
 users.methods.generateKey = function() {
