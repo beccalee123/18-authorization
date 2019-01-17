@@ -79,10 +79,9 @@ users.methods.generateToken = function(type) {
     id: this._id,
     role: this.role,
     type: type || 'user',
-    // put invalidation here?
   };
   
-  return jwt.sign(token, SECRET, {expiresIn: 60}); //put expiration here?
+  return jwt.sign(token, SECRET, {expiresIn: TOKEN_EXPIRE});
 };
 
 users.methods.generateKey = function() {
