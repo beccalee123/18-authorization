@@ -12,8 +12,7 @@ Worked with Heather Cherewaty, Brent Woodward, Jacob Anderson, Caity Heath, and 
 
 * [repo](https://github.com/beccalee123/18-authorization/pull/1)
 * [travis](https://www.travis-ci.com/beccalee123/18-authorization)
-* [back-end](http://xyz.com) (when applicable)
-* [front-end](http://xyz.com) (when applicable)
+* [heroku](https://bl-auth-lab.herokuapp.com/) 
 
 #### Documentation
 * [jsdoc](http://xyz.com) (All assignments)
