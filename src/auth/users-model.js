@@ -1,16 +1,17 @@
 'use strict';
 
+/**
+ * users-model.js
+ * @module users-model
+ */
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const faker = require('faker');
 
 
-const SINGLE_USE_TOKENS = !!process.env.SINGLE_USE_TOKENS;
 const TOKEN_EXPIRE = process.env.TOKEN_LIFETIME;
 const SECRET = process.env.SECRET || 'foobar';
-
-// setInterval(() => console.log(faker.random.word()), 60000);
 
 
 const usedTokens = new Set();
@@ -31,6 +32,11 @@ users.pre('save', function(next) {
     .catch(console.error);
 });
 
+/**
+ * Either creates new user or confirms user has already been created and welcomes them back
+ * @param {*} email
+ * @returns
+ */
 users.statics.createFromOauth = function(email) {
 
   if(! email) { return Promise.reject('Validation Error'); }
@@ -50,6 +56,11 @@ users.statics.createFromOauth = function(email) {
 
 };
 
+/**
+ * Authenticates user token
+ * @param {*} token
+ * @returns
+ */
 users.statics.authenticateToken = function(token){
   if(usedTokens.has(token)) {
     throw 'Resource Not Available';
@@ -61,6 +72,11 @@ users.statics.authenticateToken = function(token){
   }
 };
 
+/**
+ * Finds password, checks if it's correct
+ * @param {*} auth
+ * @returns
+ */
 users.statics.authenticateBasic = function(auth) {
   let query = {username:auth.username};
   return this.findOne(query)
@@ -68,11 +84,21 @@ users.statics.authenticateBasic = function(auth) {
     .catch(error => {throw error;});
 };
 
+/**
+ * Password checking function
+ * @param {*} password
+ * @returns
+ */
 users.methods.comparePassword = function(password) {
   return bcrypt.compare( password, this.password )
     .then( valid => valid ? this : null);
 };
 
+/**
+ * Token generation function
+ * @param {*} type
+ * @returns
+ */
 users.methods.generateToken = function(type) {
   
   let token = {
@@ -84,6 +110,10 @@ users.methods.generateToken = function(type) {
   return jwt.sign(token, SECRET, {expiresIn: TOKEN_EXPIRE});
 };
 
+/**
+ * Key generation function
+ * @returns
+ */
 users.methods.generateKey = function() {
   return this.generateToken('key');
 };

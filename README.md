@@ -15,7 +15,7 @@ Worked with Heather Cherewaty, Brent Woodward, Jacob Anderson, Caity Heath, and 
 * [heroku](https://bl-auth-lab.herokuapp.com/) 
 
 #### Documentation
-* [jsdoc](http://xyz.com) (All assignments)
+* [jsdoc](http://localhost:8080/doc/) (All assignments)
 
 ### Modules
 - `index.js` starts the mongo server and the web server
