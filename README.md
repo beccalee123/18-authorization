@@ -1,46 +1,49 @@
 ![CF](http://i.imgur.com/7v5ASc8.png) LAB
 =================================================
 
-## Project Name
+## Authorization
 
-### Author: Student/Group Name
+### Author: Becca Lee
+Worked with Heather Cherewaty, Brent Woodward, Jacob Anderson, Caity Heath, and Siobhan Niess
 
 ### Links and Resources
-* [repo](http://xyz.com)
-* [travis](http://xyz.com)
+
+![Build Status](https://www.travis-ci.com/beccalee123/18-authorization.svg?branch=master)
+
+* [repo](https://github.com/beccalee123/18-authorization/pull/1)
+* [travis](https://www.travis-ci.com/beccalee123/18-authorization)
 * [back-end](http://xyz.com) (when applicable)
 * [front-end](http://xyz.com) (when applicable)
 
 #### Documentation
-* [swagger](http://xyz.com) (API assignments only)
 * [jsdoc](http://xyz.com) (All assignments)
 
 ### Modules
-#### `modulename.js`
-##### Exported Values and Methods
-
-###### `foo(thing) -> string`
-Usage Notes or examples
-
-###### `bar(array) -> array`
-Usage Notes or examples
+- `index.js` starts the mongo server and the web server
+- `src/app.js` sets up the app.use functionality
+- `src/auth/middleware.js` contains the middleware auth functions
+- `src/auth/router.js` contains the routes
+- `src/auth/users-model.js` contains the users constructor and methods
+- `src/auth/oauth/google.js` contains good OAuth functionality (when needed. File not currently in use)
+- `src/middleware/404.js` contains 404 error
+- `src/middleware/500.js` contains the 500 error
 
 ### Setup
 #### `.env` requirements
-* `PORT` - Port Number
-* `MONGODB_URI` - URL to the running mongo instance/db
+* `PORT` - 8080
+* `MONGODB_URI` - mongodb://localhost:27017/store
+* `SECRET` (your chosen secret)
+* `TOKEN_LIFETIME` (your chosen token lifetime)
 
 #### Running the app
 * `npm start`
-* Endpoint: `/foo/bar/`
-  * Returns a JSON object with abc in it.
-* Endpoint: `/bing/zing/`
-  * Returns a JSON object with xyz in it.
+
   
 #### Tests
 * How do you run tests?
+Tests are run with jest and travis
 * What assertions were made?
 * What assertions need to be / should be made?
 
 #### UML
-Link to an image of the UML for your application and response to events
+![lab 18 uml](lab18uml.jpg)
