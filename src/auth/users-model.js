@@ -107,7 +107,7 @@ users.methods.generateToken = function(type) {
     type: type || 'user',
   };
   
-  return jwt.sign(token, SECRET, {expiresIn: TOKEN_EXPIRE});
+  return jwt.sign(token, SECRET, {expiresIn: 60});
 };
 
 /**
